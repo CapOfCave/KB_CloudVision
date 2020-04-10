@@ -2,11 +2,20 @@
 using System;
 using System.Linq;
 
+using Google.Cloud.Vision.V1;
+using System;
+using System.Linq;
+
 namespace KB_CloudVision
 {
     class Program
     {
-        static void Main(string[] args)
+        static readonly string s_usage = @"dotnet run image-file
+
+    Use the Google Cloud Vision API to detect faces in the image.
+    Writes an output file called image-file.faces.
+    ";
+        public static void Main(string[] args)
         {
 
 
