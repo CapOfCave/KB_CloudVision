@@ -17,15 +17,15 @@ namespace KB_CloudVision
         private readonly System.Drawing.Pen cyanPen = new System.Drawing.Pen(System.Drawing.Color.Cyan, 3);
         private readonly System.Drawing.Pen redPen = new System.Drawing.Pen(System.Drawing.Color.Red, 1);
         private readonly string imageUrl;
-        
+
         // References
         private ImageAnnotatorClient client;
         private Google.Cloud.Vision.V1.Image image;
         private IReadOnlyList<FaceAnnotation> face_response;
         private System.Drawing.Image image_processed;
-        private System.Drawing.Graphics g;
+        private System.Drawing.Image image_unprocessed;
 
-        
+
 
 
         public Services(string imageUrl)
@@ -69,17 +69,21 @@ namespace KB_CloudVision
             }
         }
 
+        internal void Reset()
+        {
+            if (image_unprocessed == null)
+            {
+                return;
+            }
+            image_processed = (System.Drawing.Image)image_unprocessed.Clone();
+        }
+
         private void drawCircle(System.Drawing.Graphics drawingArea, System.Drawing.Pen penToUse, System.Drawing.Point center, int radius)
         {
             System.Drawing.Rectangle rect = new System.Drawing.Rectangle(center.X - radius, center.Y - radius, radius * 2, radius * 2);
             drawingArea.DrawEllipse(penToUse, rect);
         }
 
-
-        internal void SaveProcessedImage(string v)
-        {
-            FileSystemImage().Save("F:\\img\\img1-erg.jpg");
-        }
 
         // Helper Methods
         private ImageAnnotatorClient getClient()
@@ -95,8 +99,9 @@ namespace KB_CloudVision
 
         internal BitmapImage ProcessedImage()
         {
-            return Convert(image_processed);
+            return Convert(FileSystemImage());
         }
+
 
         private Google.Cloud.Vision.V1.Image getImage()
         {
@@ -104,7 +109,7 @@ namespace KB_CloudVision
             {
                 image = Google.Cloud.Vision.V1.Image.FromFile(imageUrl);
             }
-            
+
             return image;
         }
 
@@ -123,17 +128,14 @@ namespace KB_CloudVision
             if (image_processed == null)
             {
                 image_processed = System.Drawing.Image.FromFile(imageUrl);
+                image_unprocessed = (System.Drawing.Image)image_processed.Clone();
             }
             return image_processed;
         }
 
         private System.Drawing.Graphics Graphics()
         {
-            if (g == null)
-            {
-                g = System.Drawing.Graphics.FromImage(FileSystemImage());
-            }
-            return g;
+            return System.Drawing.Graphics.FromImage(FileSystemImage());
         }
 
         public BitmapImage Convert(System.Drawing.Image img)
@@ -152,23 +154,5 @@ namespace KB_CloudVision
                 return bitmapImage;
             }
         }
-
-        //public BitmapImage ImageSource()
-        //{
-        //    var bitmap = new BitMap(Image());
-        //    using (MemoryStream memory = new MemoryStream())
-        //    {
-        //        bitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Bmp);
-        //        memory.Position = 0;
-        //        BitmapImage bitmapimage = new BitmapImage();
-        //        bitmapimage.BeginInit();
-        //        bitmapimage.StreamSource = memory;
-        //        bitmapimage.CacheOption = BitmapCacheOption.OnLoad;
-        //        bitmapimage.EndInit();
-
-        //        return bitmapimage;
-        //    }
-        //}
-
     }
 }

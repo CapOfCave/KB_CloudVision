@@ -26,6 +26,8 @@ namespace WpfAppGui
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        private Services service;
         public MainWindow()
         {
             InitializeComponent();
@@ -55,9 +57,20 @@ namespace WpfAppGui
                 PathBox.Text = @openFileDialog1.FileName;
             }
         }
-    
 
-        
+
+        private void GesichtseingrenzungChanged(object sender, RoutedEventArgs e)
+        {
+            if (service != null)
+                CalcImage();
+        }
+
+        private void LandmarksChanged(object sender, RoutedEventArgs e)
+        {
+            if (service != null)
+                CalcImage();
+        }
+
         private void Beenden_Click(object sender, RoutedEventArgs e)
         {
             Environment.Exit(1);
@@ -65,30 +78,31 @@ namespace WpfAppGui
 
         private void Start_Click(object sender, RoutedEventArgs e)
         {
-            var service = new Services(@PathBox.Text);
+            Labels.Text = "Loading...";
+            service = new Services(@PathBox.Text);
+            Labels.Text = "Loaded";
+            CalcImage();
+
+        }
+
+        private void CalcImage()
+        {
+            service.Reset();
             if (___Gesichtseingrenzung.IsChecked.HasValue && ___Gesichtseingrenzung.IsChecked.Value)
             {
                 service.drawBoundedPolygon();
             }
-            else if (Landmarks.IsChecked.HasValue && Landmarks.IsChecked.Value)
+            if (Landmarks.IsChecked.HasValue && Landmarks.IsChecked.Value)
             {
                 service.drawLandmarks();
             }
 
-            if (Labels.Text.Equals(""))
-            {
-                Labels.Text = "Anfrage verarbeitet, es liegen Fehler vor!";
-            }
-            else
-            {
-                
-                service.SaveProcessedImage(System.IO.Path.GetDirectoryName(@PathBox.Text) + System.IO.Path.DirectorySeparatorChar + "img-extracted.jpg");
+            Labels.Text = (String.Join("\n", service.getLabels().Select(o => o.Description)));
+            System.Drawing.Image inputImage = System.Drawing.Image.FromFile(PathBox.Text);
+            image.Source = service.Convert(inputImage);
+            aimage.Source = service.ProcessedImage();
 
-                image.Source = service.ProcessedImage();
-                //image.Source = new ImageSource (PathBox.Text);
-                //aimge.Source = System.IO.Path.GetDirectoryName(@PathBox.Text) + System.IO.Path.DirectorySeparatorChar + "img-extracted.jpg";
-            }          
-       }
+        }
     }
 
 }
