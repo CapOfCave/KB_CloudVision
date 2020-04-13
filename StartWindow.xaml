@@ -8,15 +8,19 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Button x:Name="Datei_auswählen" Content="Bild auswählen" HorizontalAlignment="Left" Height="39" Margin="546,379,0,0" VerticalAlignment="Top" Width="119" Click="Datei_auswählen_Click"/>
-        <TextBlock HorizontalAlignment="Left" Height="102" Margin="20,15,0,0" Text="Willkommen beim face recognization GCP-Projekt" TextWrapping="Wrap" VerticalAlignment="Top" Width="186"/>
-        <CheckBox x:Name="Gesicht" Content="Gesichtserkennung" HorizontalAlignment="Left" Height="26" Margin="560,91,0,0" VerticalAlignment="Top" Width="133"/>
-        <CheckBox x:Name="Landmarks" Content="Landmarks durchsuchen" HorizontalAlignment="Left" Height="26" Margin="560,117,0,0" VerticalAlignment="Top" Width="156"/>
-        <TextBlock x:Name="Filtereinstellung" HorizontalAlignment="Left" Height="21" Margin="560,53,0,0" Text="Filtereinstellung:" TextWrapping="Wrap" VerticalAlignment="Top" Width="110"/>
-        <CheckBox x:Name="___Gesichtseingrenzung" Content="Gesichtseingrenzung" HorizontalAlignment="Left" Height="23" Margin="560,141,0,0" VerticalAlignment="Top" Width="170"/>
-        <CheckBox x:Name="Signifikante_Punkte" Content="Signifikante Punkte" HorizontalAlignment="Left" Height="24" Margin="560,166,0,0" VerticalAlignment="Top" Width="133"/>
+        <TextBlock HorizontalAlignment="Left" Height="49" Margin="20,15,0,0" Text="Facial recognition system mittels GCP" TextWrapping="Wrap" VerticalAlignment="Top" Width="230"/>
+        <CheckBox x:Name="Gesicht" Content="Gesichtserkennung" HorizontalAlignment="Left" Height="26" Margin="620,57,0,0" VerticalAlignment="Top" Width="133"/>
+        <CheckBox x:Name="Landmarks" Content="Landmarks durchsuchen" HorizontalAlignment="Left" Height="26" Margin="620,83,0,0" VerticalAlignment="Top" Width="156"/>
+        <TextBlock x:Name="Filtereinstellung" HorizontalAlignment="Left" Height="21" Margin="620,19,0,0" Text="Filtereinstellung:" TextWrapping="Wrap" VerticalAlignment="Top" Width="110"/>
+        <CheckBox x:Name="___Gesichtseingrenzung" Content="Gesichtseingrenzung" HorizontalAlignment="Left" Height="23" Margin="620,107,0,0" VerticalAlignment="Top" Width="170"/>
+        <CheckBox x:Name="Signifikante_Punkte" Content="Signifikante Punkte" HorizontalAlignment="Left" Height="24" Margin="620,132,0,0" VerticalAlignment="Top" Width="133"/>
         <Button x:Name="Start" Content="Starten" HorizontalAlignment="Left" Height="39" Margin="665,379,0,0" VerticalAlignment="Top" Width="112" Click="Start_Click"/>
         <Button x:Name="Beenden" Content="Beenden" HorizontalAlignment="Left" Height="39" Margin="32,379,0,0" VerticalAlignment="Top" Width="137" Click="Beenden_Click"/>
         <TextBox x:Name="Path" HorizontalAlignment="Left" Height="20" Margin="240,398,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="301"/>
+        <TextBox x:Name="Labels" HorizontalAlignment="Left" Height="199" Margin="11,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="66"/>
+        <TextBlock HorizontalAlignment="Left" Height="30" Margin="15,74,0,0" Text="Ausgabe:" TextWrapping="Wrap" VerticalAlignment="Top" Width="50"/>
+        <Image HorizontalAlignment="Left" Height="278" Margin="77,64,0,0" VerticalAlignment="Top" Width="313"/>
+        <Image HorizontalAlignment="Left" Height="278" Margin="400,64,0,0" VerticalAlignment="Top" Width="322"/>
 
     </Grid>
 </Window>
