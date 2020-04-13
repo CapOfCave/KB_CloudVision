@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using System.Drawing;
+using System.Windows.Media.Imaging;
+using System.IO;
+using System.Drawing.Imaging;
 
 namespace KB_CloudVision
 {
@@ -75,7 +78,7 @@ namespace KB_CloudVision
 
         internal void SaveProcessedImage(string v)
         {
-            image_processed.Save("F:\\img\\img1-erg.jpg");
+            FileSystemImage().Save("F:\\img\\img1-erg.jpg");
         }
 
         // Helper Methods
@@ -88,6 +91,11 @@ namespace KB_CloudVision
                 Console.WriteLine("Connected");
             }
             return client;
+        }
+
+        internal BitmapImage ProcessedImage()
+        {
+            return Convert(image_processed);
         }
 
         private Google.Cloud.Vision.V1.Image getImage()
@@ -104,7 +112,7 @@ namespace KB_CloudVision
         {
             if (face_response == null)
             {
-                face_response = client.DetectFaces(image);
+                face_response = getClient().DetectFaces(getImage());
             }
             return face_response;
 
@@ -123,11 +131,27 @@ namespace KB_CloudVision
         {
             if (g == null)
             {
-                g = System.Drawing.Graphics.FromImage(image_processed);
+                g = System.Drawing.Graphics.FromImage(FileSystemImage());
             }
             return g;
         }
 
+        public BitmapImage Convert(System.Drawing.Image img)
+        {
+            using (var memory = new MemoryStream())
+            {
+                img.Save(memory, ImageFormat.Png);
+                memory.Position = 0;
+
+                var bitmapImage = new BitmapImage();
+                bitmapImage.BeginInit();
+                bitmapImage.StreamSource = memory;
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapImage.EndInit();
+
+                return bitmapImage;
+            }
+        }
 
         //public BitmapImage ImageSource()
         //{

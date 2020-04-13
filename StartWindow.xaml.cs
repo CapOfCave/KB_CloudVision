@@ -84,7 +84,7 @@ namespace WpfAppGui
                 
                 service.SaveProcessedImage(System.IO.Path.GetDirectoryName(@PathBox.Text) + System.IO.Path.DirectorySeparatorChar + "img-extracted.jpg");
 
-                image.Source = new BitmapImage(service.ProcessedImage());
+                image.Source = service.ProcessedImage();
                 //image.Source = new ImageSource (PathBox.Text);
                 //aimge.Source = System.IO.Path.GetDirectoryName(@PathBox.Text) + System.IO.Path.DirectorySeparatorChar + "img-extracted.jpg";
             }          
