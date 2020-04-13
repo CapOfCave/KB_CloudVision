@@ -14,12 +14,15 @@ namespace KB_CloudVision
         private readonly System.Drawing.Pen cyanPen = new System.Drawing.Pen(System.Drawing.Color.Cyan, 3);
         private readonly System.Drawing.Pen redPen = new System.Drawing.Pen(System.Drawing.Color.Red, 1);
         private readonly string imageUrl;
+        
         // References
-
         private ImageAnnotatorClient client;
         private Google.Cloud.Vision.V1.Image image;
         private IReadOnlyList<FaceAnnotation> face_response;
-       
+        private System.Drawing.Image image_processed;
+        private System.Drawing.Graphics g;
+
+        
 
 
         public Services(string imageUrl)
@@ -37,28 +40,28 @@ namespace KB_CloudVision
             return getClient().DetectImageProperties(getImage());
         }
 
-        internal void drawBoundedPolygon(Graphics g)
+        internal void drawBoundedPolygon()
         {
 
             foreach (var annotation in getFaceResponse())
             {
-               
-                g.DrawPolygon(cyanPen, annotation.BoundingPoly.Vertices.Select(
+
+                Graphics().DrawPolygon(cyanPen, annotation.BoundingPoly.Vertices.Select(
                     (vertex) => new System.Drawing.Point(vertex.X, vertex.Y)).ToArray());
 
             }
         }
 
-     
 
-        internal void drawLandmarks(Graphics g)
+
+        internal void drawLandmarks()
         {
             foreach (var annotation in getFaceResponse())
             {
                 var landmarks = annotation.Landmarks;
                 foreach (var landmark in landmarks)
                 {
-                    drawCircle(g, redPen, new System.Drawing.Point((int)landmark.Position.X, (int)landmark.Position.Y), 1);
+                    drawCircle(Graphics(), redPen, new System.Drawing.Point((int)landmark.Position.X, (int)landmark.Position.Y), 1);
                 }
             }
         }
@@ -69,7 +72,13 @@ namespace KB_CloudVision
             drawingArea.DrawEllipse(penToUse, rect);
         }
 
-        //Methods
+
+        internal void SaveProcessedImage(string v)
+        {
+            image_processed.Save("F:\\img\\img1-erg.jpg");
+        }
+
+        // Helper Methods
         private ImageAnnotatorClient getClient()
         {
             if (client == null)
@@ -87,6 +96,7 @@ namespace KB_CloudVision
             {
                 image = Google.Cloud.Vision.V1.Image.FromFile(imageUrl);
             }
+            
             return image;
         }
 
@@ -97,8 +107,44 @@ namespace KB_CloudVision
                 face_response = client.DetectFaces(image);
             }
             return face_response;
-           
+
         }
+
+        private System.Drawing.Image FileSystemImage()
+        {
+            if (image_processed == null)
+            {
+                image_processed = System.Drawing.Image.FromFile(imageUrl);
+            }
+            return image_processed;
+        }
+
+        private System.Drawing.Graphics Graphics()
+        {
+            if (g == null)
+            {
+                g = System.Drawing.Graphics.FromImage(image_processed);
+            }
+            return g;
+        }
+
+
+        //public BitmapImage ImageSource()
+        //{
+        //    var bitmap = new BitMap(Image());
+        //    using (MemoryStream memory = new MemoryStream())
+        //    {
+        //        bitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Bmp);
+        //        memory.Position = 0;
+        //        BitmapImage bitmapimage = new BitmapImage();
+        //        bitmapimage.BeginInit();
+        //        bitmapimage.StreamSource = memory;
+        //        bitmapimage.CacheOption = BitmapCacheOption.OnLoad;
+        //        bitmapimage.EndInit();
+
+        //        return bitmapimage;
+        //    }
+        //}
 
     }
 }

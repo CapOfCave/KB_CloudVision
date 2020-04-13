@@ -17,6 +17,7 @@ using System.IO;
 using Microsoft.Win32;
 using System.Drawing;
 using System.Windows.Forms;
+using KB_CloudVision;
 
 namespace WpfAppGui
 {
@@ -51,17 +52,12 @@ namespace WpfAppGui
 
             if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                Path.Text = openFileDialog1.FileName;
+                PathBox.Text = @openFileDialog1.FileName;
             }
         }
     
 
-        private static void OpenExplorer(string path)
-        {
-            if (Directory.Exists("C:\temp"))
-                Process.Start("explorer.exe", "C:\temp");
-        }
-
+        
         private void Beenden_Click(object sender, RoutedEventArgs e)
         {
             Environment.Exit(1);
@@ -69,22 +65,30 @@ namespace WpfAppGui
 
         private void Start_Click(object sender, RoutedEventArgs e)
         {
+            var service = new Services(@PathBox.Text);
             if (___Gesichtseingrenzung.IsChecked.HasValue && ___Gesichtseingrenzung.IsChecked.Value)
             {
-
+                service.drawBoundedPolygon();
             }
             else if (Landmarks.IsChecked.HasValue && Landmarks.IsChecked.Value)
             {
-
+                service.drawLandmarks();
             }
-            else if (Signifikante_Punkte.IsChecked.HasValue && Signifikante_Punkte.IsChecked.Value)
-            {
 
+            if (Labels.Text.Equals(""))
+            {
+                Labels.Text = "Anfrage verarbeitet, es liegen Fehler vor!";
             }
             else
             {
-                Console.WriteLine("Anfrage verarbeitet!");
-            }
-        }
+                
+                service.SaveProcessedImage(System.IO.Path.GetDirectoryName(@PathBox.Text) + System.IO.Path.DirectorySeparatorChar + "img-extracted.jpg");
+
+                image.Source = new BitmapImage(service.ProcessedImage());
+                //image.Source = new ImageSource (PathBox.Text);
+                //aimge.Source = System.IO.Path.GetDirectoryName(@PathBox.Text) + System.IO.Path.DirectorySeparatorChar + "img-extracted.jpg";
+            }          
+       }
     }
+
 }

@@ -14,35 +14,34 @@ namespace KB_CloudVision
     Use the Google Cloud Vision API to detect faces in the image.
     Writes an output file called image-file.faces.
     ";
-        public static void SMain(string[] args)
-        {
-            // Instantiates a service object
-            Services services = new Services("F:\\img\\img1.jpg");
+        //public static void SMain(string[] args)
+        //{
+        //    // Instantiates a service object
+        //    Services services = new Services("F:\\img\\img1.jpg");
 
-            var colors = services.ColorAnalysis();
-            // Load the image file into memory
-            var image = Image.FromFile("F:\\img\\img1.jpg");
-            var image_system = System.Drawing.Image.FromFile("F:\\img\\img1.jpg");
-            // Performs label detection on the image file
+        //    var colors = services.ColorAnalysis();
+           
+           
+        //    // Performs label detection on the image file
 
-            var labels = services.getLabels();
+        //    var labels = services.getLabels();
 
-            foreach (var annotation in labels)
-            {
-                    Console.WriteLine(annotation.Description);
-            }
+        //    foreach (var annotation in labels)
+        //    {
+        //            Console.WriteLine(annotation.Description);
+        //    }
          
-            using (System.Drawing.Graphics g = System.Drawing.Graphics.FromImage(image_system))
-            {
-                services.drawBoundedPolygon(g);
-                services.drawLandmarks(g);
-            }
-            image_system.Save("F:\\img\\img1-erg.jpg");
+        //    using (System.Drawing.Graphics g = System.Drawing.Graphics.FromImage(image_system))
+        //    {
+        //        services.drawBoundedPolygon();
+        //        services.drawLandmarks();
+        //    }
+        //    image_system.Save("F:\\img\\img1-erg.jpg");
 
 
 
 
-        }
+        //}
        
     }
 }
