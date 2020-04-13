@@ -1,7 +1,6 @@
 ﻿using Google.Cloud.Vision.V1;
 using System;
 using System.Linq;
-
 using Google.Cloud.Vision.V1;
 using System;
 using System.Linq;
@@ -17,19 +16,33 @@ namespace KB_CloudVision
     ";
         public static void Main(string[] args)
         {
+            // Instantiates a service object
+            Services services = new Services("F:\\img\\img1.jpg");
 
-
-            // Instantiates a client
-            var client = ImageAnnotatorClient.Create();
+            var colors = services.ColorAnalysis();
             // Load the image file into memory
             var image = Image.FromFile("F:\\img\\img1.jpg");
+            var image_system = System.Drawing.Image.FromFile("F:\\img\\img1.jpg");
             // Performs label detection on the image file
-            var response = client.DetectLabels(image);
-            foreach (var annotation in response)
+
+            var labels = services.getLabels();
+
+            foreach (var annotation in labels)
             {
-                if (annotation.Description != null)
                     Console.WriteLine(annotation.Description);
             }
+         
+            using (System.Drawing.Graphics g = System.Drawing.Graphics.FromImage(image_system))
+            {
+                services.drawBoundedPolygon(g);
+                services.drawLandmarks(g);
+            }
+            image_system.Save("F:\\img\\img1-erg.jpg");
+
+
+
+
         }
+       
     }
 }
