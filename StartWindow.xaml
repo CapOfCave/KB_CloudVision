@@ -1,0 +1,22 @@
+﻿<Window x:Class="WpfAppGui.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfAppGui"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Button x:Name="Datei_auswählen" Content="Bild auswählen" HorizontalAlignment="Left" Height="39" Margin="546,379,0,0" VerticalAlignment="Top" Width="119" Click="Datei_auswählen_Click"/>
+        <TextBlock HorizontalAlignment="Left" Height="102" Margin="20,15,0,0" Text="Willkommen beim face recognization GCP-Projekt" TextWrapping="Wrap" VerticalAlignment="Top" Width="186"/>
+        <CheckBox x:Name="Gesicht" Content="Gesichtserkennung" HorizontalAlignment="Left" Height="26" Margin="560,91,0,0" VerticalAlignment="Top" Width="133"/>
+        <CheckBox x:Name="Landmarks" Content="Landmarks durchsuchen" HorizontalAlignment="Left" Height="26" Margin="560,117,0,0" VerticalAlignment="Top" Width="156"/>
+        <TextBlock x:Name="Filtereinstellung" HorizontalAlignment="Left" Height="21" Margin="560,53,0,0" Text="Filtereinstellung:" TextWrapping="Wrap" VerticalAlignment="Top" Width="110"/>
+        <CheckBox x:Name="___Gesichtseingrenzung" Content="Gesichtseingrenzung" HorizontalAlignment="Left" Height="23" Margin="560,141,0,0" VerticalAlignment="Top" Width="170"/>
+        <CheckBox x:Name="Signifikante_Punkte" Content="Signifikante Punkte" HorizontalAlignment="Left" Height="24" Margin="560,166,0,0" VerticalAlignment="Top" Width="133"/>
+        <Button x:Name="Start" Content="Starten" HorizontalAlignment="Left" Height="39" Margin="665,379,0,0" VerticalAlignment="Top" Width="112" Click="Start_Click"/>
+        <Button x:Name="Beenden" Content="Beenden" HorizontalAlignment="Left" Height="39" Margin="32,379,0,0" VerticalAlignment="Top" Width="137" Click="Beenden_Click"/>
+        <TextBox x:Name="Path" HorizontalAlignment="Left" Height="20" Margin="240,398,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="301"/>
+
+    </Grid>
+</Window>
