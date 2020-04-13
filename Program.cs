@@ -14,7 +14,7 @@ namespace KB_CloudVision
     Use the Google Cloud Vision API to detect faces in the image.
     Writes an output file called image-file.faces.
     ";
-        public static void Main(string[] args)
+        public static void SMain(string[] args)
         {
             // Instantiates a service object
             Services services = new Services("F:\\img\\img1.jpg");

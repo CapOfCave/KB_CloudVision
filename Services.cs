@@ -32,8 +32,6 @@ namespace KB_CloudVision
         {
             return getClient().DetectLabels(getImage()).Where(label => label.Description != null);
         }
-
-        //Services
         internal ImageProperties ColorAnalysis()
         {
             return getClient().DetectImageProperties(getImage());

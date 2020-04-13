@@ -30,9 +30,9 @@ namespace WpfAppGui
             InitializeComponent();
         }
 
-        private void Datei_auswählen_Click(object sender, RoutedEventArgs e)
+        private void Datei_auswaehlen_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog
+            System.Windows.Forms.OpenFileDialog openFileDialog1 = new System.Windows.Forms.OpenFileDialog
             {
                 InitialDirectory = @"C:\",
                 Title = "Browse Text Files",
@@ -49,7 +49,7 @@ namespace WpfAppGui
                 ShowReadOnly = true
             };
 
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 Path.Text = openFileDialog1.FileName;
             }
@@ -64,24 +64,20 @@ namespace WpfAppGui
 
         private void Beenden_Click(object sender, RoutedEventArgs e)
         {
-            Application.Exit(0);
+            Environment.Exit(1);
         }
 
         private void Start_Click(object sender, RoutedEventArgs e)
         {
-            if (___Gesichtseingrenzung.IsChecked)
+            if (___Gesichtseingrenzung.IsChecked.HasValue && ___Gesichtseingrenzung.IsChecked.Value)
             {
 
             }
-            else if (Landmarks.IsChecked)
+            else if (Landmarks.IsChecked.HasValue && Landmarks.IsChecked.Value)
             {
 
             }
-            else if (___Gesichtseingrenzung.IsChecked)
-            {
-
-            }
-            else if (Signifikante_Punkte.IsChecked)
+            else if (Signifikante_Punkte.IsChecked.HasValue && Signifikante_Punkte.IsChecked.Value)
             {
 
             }
