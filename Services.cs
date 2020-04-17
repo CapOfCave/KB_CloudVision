@@ -14,8 +14,8 @@ namespace KB_CloudVision
     {
 
         //variables
-        private readonly System.Drawing.Pen cyanPen = new System.Drawing.Pen(System.Drawing.Color.Cyan, 3);
-        private readonly System.Drawing.Pen redPen = new System.Drawing.Pen(System.Drawing.Color.Red, 1);
+        private readonly System.Drawing.Pen cyanPen = new System.Drawing.Pen(System.Drawing.Color.Cyan, 5);
+        private readonly System.Drawing.Pen redPen = new System.Drawing.Pen(System.Drawing.Color.Red, 3);
         private readonly string imageUrl;
 
         // References

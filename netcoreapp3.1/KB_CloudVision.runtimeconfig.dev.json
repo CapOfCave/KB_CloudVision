@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\larsk\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\larsk\\.nuget\\packages"
+    ]
+  }
+}
